@@ -40,7 +40,6 @@ api-playground/
 │── app.py
 │── requirements.txt
 │── Procfile
-│── students.db
 │── templates/
 │   └── index.html
 │── static/
