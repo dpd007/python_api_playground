@@ -8,6 +8,8 @@
   </head>
   <body>
     <h1>API Playground</h1>
+    <h2>Welcome {{ username }}</h2>
+    <a id="logout_btn" href="/logout">Logout</a>
 
     <div class="box">
       <label>Method</label>
@@ -25,7 +27,6 @@
       <label>JSON Body</label>
       <textarea name="body" id="body">
             {
-                "id": id,
                 "name": "First Last Name",
                 "marks": "Marks"
             }
@@ -53,6 +54,8 @@
         <button id="reqText" onclick="sendReq()">Send Request</button>
 
         <button onclick="clearData()">Clear All Students</button>
+
+        <button onclick="dropTable()">Delete Students Table</button>
       </div>
     </div>
 
@@ -112,6 +115,19 @@
         document.getElementById("url").value = path;
         changeReqName();
       }
+
+      async function dropTable(){
+        const ok = confirm("Delete entire students table?");
+        if(!ok) return;
+        const res = await fetch("/drop-students-table", {
+          method: "POST"
+        });
+        const data = await res.json();
+        document.getElementById("output").textContent =
+        `STATUS: ${res.status}
+        BODY:${JSON.stringify(data, null, 2)}`;
+      }
+
     </script>
     <footer class="footer">© 2026 Durga. Built by me.</footer>
   </body>

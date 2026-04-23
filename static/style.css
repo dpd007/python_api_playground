@@ -4,6 +4,7 @@ body {
   margin: 30px auto;
   background: #111;
   color: white;
+  position: relative;
 }
 
 .box {
@@ -34,23 +35,29 @@ pre {
   white-space: pre-wrap;
 }
 
-.endpoints{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-    margin-bottom:20px;
+.endpoints {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
 }
 
-.endpoints button{
-    padding:8px 12px;
-    cursor:pointer;
+.endpoints button {
+  padding: 8px 12px;
+  cursor: pointer;
 }
 
-.footer{
-    margin-top:40px;
-    padding:20px 0;
-    text-align:center;
-    color:#aaa;
-    font-size:14px;
-    border-top:1px solid #333;
+.footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  text-align: center;
+  color: #aaa;
+  font-size: 14px;
+  border-top: 1px solid #333;
+}
+
+#logout_btn {
+  position: absolute;
+  top: 4rem;
+  right: 0;
 }
