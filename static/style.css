@@ -1,0 +1,47 @@
+body {
+  font-family: Arial;
+  max-width: 900px;
+  margin: 30px auto;
+  background: #111;
+  color: white;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input,
+select,
+textarea,
+button {
+  padding: 10px;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 180px;
+}
+
+button {
+  cursor: pointer;
+}
+
+pre {
+  background: #222;
+  padding: 20px;
+  white-space: pre-wrap;
+}
+
+.endpoints{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.endpoints button{
+    padding:8px 12px;
+    cursor:pointer;
+}

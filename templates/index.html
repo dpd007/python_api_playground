@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Playground</title>
+    <link rel="stylesheet" href="/static/style.css" />
+  </head>
+  <body>
+    <h1>API Playground</h1>
+
+    <div class="box">
+      <label>Method</label>
+      <select name="method" id="method" onchange="changeReqName()">
+        <option>GET</option>
+        <option>POST</option>
+        <option>PUT</option>
+        <option>PATCH</option>
+        <option>DELETE</option>
+      </select>
+
+      <label>Endpoint</label>
+      <input id="url" value="/students" />
+
+      <label>JSON Body</label>
+      <textarea name="body" id="body">
+            {
+                "id": id,
+                "name": "First Last Name",
+                "marks": "Marks"
+            }
+        </textarea
+      >
+      <h3>Available Endpoints</h3>
+
+      <div class="endpoints">
+        <button onclick="setEndpoint('/students')">GET /students</button>
+
+        <button onclick="setEndpoint('/students/1')">GET /students/1</button>
+
+        <button onclick="setEndpoint('/students')">POST /students</button>
+
+        <button onclick="setEndpoint('/students/1')">PUT /students/1</button>
+
+        <button onclick="setEndpoint('/students/1')">PATCH /students/1</button>
+
+        <button onclick="setEndpoint('/students/1')">DELETE /students/1</button>
+
+        <button onclick="setEndpoint('/students')">DELETE ALL /students</button>
+      </div>
+
+      <div class="buttons">
+        <button id="reqText" onclick="sendReq()">Send Request</button>
+
+        <button onclick="clearData()">Clear All Students</button>
+      </div>
+    </div>
+
+    <h2>Response</h2>
+    <pre id="output"></pre>
+
+    <script>
+      async function sendReq() {
+        const method = document.getElementById("method").value;
+        const url = document.getElementById("url").value;
+        const reqBody = document.getElementById("body").value;
+
+        let options = {
+          method: method,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        };
+
+        if (method != "GET" && method != "DELETE") {
+          options.body = reqBody;
+        }
+
+        const res = await fetch(url, options);
+        const data = await res.json();
+
+        const headers = [...res.headers.entries()]
+          .map(([k, v]) => `${k}:${v}`)
+          .join("\n");
+
+        document.getElementById("output").textContent = `
+                STATUS: ${res.status}
+                HEADERS: ${headers}
+                BODY: ${JSON.stringify(data, null, 2)}
+                `;
+      }
+
+      async function clearData() {
+        const res = await fetch("/students", {
+          method: "DELETE",
+        });
+        const data = await res.json();
+        document.getElementById("output").textContent = `
+                STATUS: ${res.status}
+                BODY: ${JSON.stringify(data, null, 2)}
+            `;
+      }
+
+      function changeReqName() {
+        selectDrop = document.getElementById("method").value;
+        // console.log(selectDrop);
+        document.getElementById("reqText").textContent =
+          `${selectDrop} Request`;
+      }
+      function useEndpoint(method, path) {
+        document.getElementById("method").value = method;
+        document.getElementById("url").value = path;
+        changeReqName();
+      }
+    </script>
+  </body>
+</html>
